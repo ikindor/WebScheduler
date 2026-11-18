@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Round Robin</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1>Round Robin</h1>
+  </header>
+
+  <main class="layout">
+    <form id="form" novalidate>
+      <section class="section" aria-labelledby="h-procs">
+        <div class="section-head">
+          <h2 id="h-procs">Processes</h2>
+          <div class="section-tools">
+            <button type="button" class="text-btn" id="example">Example</button>
+            <button type="button" class="text-btn" id="clear">Clear</button>
+          </div>
+        </div>
+        <div class="row-grid cols" aria-hidden="true">
+          <span></span><span>Arrival</span><span>Burst</span><span></span>
+        </div>
+        <ol class="rows" id="rows"></ol>
+        <button type="button" class="add" id="add">+ Add process</button>
+      </section>
+
+      <section class="section">
+        <label for="quantum">Quantum</label>
+        <input type="number" id="quantum" inputmode="numeric" min="1" step="1">
+      </section>
+
+      <section class="section">
+        <p class="notice" id="form-notice" role="alert" hidden></p>
+        <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+      </section>
+    </form>
+
+    <section class="sheet" id="sheet" data-state="empty" aria-labelledby="h-result" aria-live="polite">
+      <div class="sheet-head">
+        <h2 id="h-result">Result</h2>
+        <a class="btn btn-secondary" id="download" data-show="result" download="round-robin.svg">Download SVG</a>
+      </div>
+
+      <div data-show="empty loading">
+        <svg class="ghost" viewBox="0 0 480 124" aria-hidden="true" focusable="false">
+          <rect x="0"   y="4"  width="150" height="20" rx="4"/>
+          <rect x="150" y="36" width="100" height="20" rx="4"/>
+          <rect x="250" y="68" width="130" height="20" rx="4"/>
+          <rect x="380" y="100" width="100" height="20" rx="4"/>
+        </svg>
+        <p class="placeholder" data-show="empty">Fill the table and submit: here will appear Gantt Diagram</p>
+        <p class="placeholder" data-show="loading">Wait…</p>
+      </div>
+
+      <p class="notice" id="error" role="alert" data-show="error"></p>
+
+      <div id="result" data-show="result">
+        <div class="metric">
+          <span>Average waiting time</span>
+          <strong id="avg">—</strong>
+        </div>
+        <dl class="waits" id="waits"></dl>
+        <div class="paper">
+          <img id="chart" alt="Gantt Diagram">
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
